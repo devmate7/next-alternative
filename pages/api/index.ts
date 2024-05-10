@@ -1,14 +1,10 @@
+import sequelize from '@/handlers/sequelize';
+import Test from '@/models/Test';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-	done: boolean;
-};
-
-export default function handler(
+export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<Data>
+	res: NextApiResponse<typeof Test>
 ) {
-	res.status(200).json({
-		done: true
-	});
+	res.status(200).json(await sequelize.models.Test.findByPk(1));
 }
